@@ -1,5 +1,5 @@
 [defaults]
-host_key_checking = False
+host_key_checking=False
 
 [test-group]
 192.168.1.20
