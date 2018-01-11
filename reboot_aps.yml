@@ -1,0 +1,31 @@
+# playbook to reboot all Ubiquiti APs
+---
+- hosts: access-points
+# - hosts: test-group # swap with line above to run on a test-group
+  gather_facts: no
+  serial: 1 # run on exactly 1 host at a time
+
+  vars_prompt:
+    - name: "ansible_ssh_pass"
+      prompt: "Enter Access-Point admin credentials"
+      private: yes
+
+  vars:
+    ansible_python_interpreter: "/usr/bin/env python"
+    ansible_ssh_user: admin
+
+    # you can use this for rapid testing by blocking out vars_prompt
+    # ansible_ssh_pass: <snip>
+
+  tasks:
+    # need to use raw, becuase command tries to upload a file and run it
+    - name: "Reboot AP"
+      raw: "/usr/bin/reboot"
+
+    - name: Wait for AP to reboot
+      pause:
+        seconds: 90
+
+    # need to use raw, becuase command tries to upload a file and run it
+    - name: "Make sure Device is back up"
+      raw: "/usr/bin/echo nothing"

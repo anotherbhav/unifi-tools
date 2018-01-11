@@ -1,0 +1,10 @@
+[defaults]
+host_key_checking = False
+
+[test-group]
+192.168.1.20
+
+[access-points]
+ap1.example.com
+192.168.1.20
+ap3.example.com
